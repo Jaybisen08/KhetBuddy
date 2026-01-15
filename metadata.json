@@ -1,0 +1,9 @@
+{
+  "name": "Copy of KhetBuddy - Agri-Tech Ecosystem",
+  "description": "A comprehensive digital ecosystem for farmers featuring Mandi price prediction, AI crop diagnostics, weather advisories, and a P2P tool rental marketplace.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ]
+}

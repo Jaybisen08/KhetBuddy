@@ -1,0 +1,218 @@
+
+import { Language } from '../types';
+
+const enBase = {
+  title: 'KhetBuddy',
+  tagline: 'Precision Agriculture. Empowered Farmers.',
+  navTitle: 'Navigation',
+  supportStatus: 'Support Status',
+  aiOnline: 'AI Mitra Online',
+  login: 'Login to Farm',
+  register: 'Register Now',
+  createAccount: 'Create Account',
+  mandi: 'Mandi Price',
+  kisanDashboard: 'Kisan Dashboard',
+  weather: 'Weather Alert',
+  weatherIntelligence: 'Weather Intelligence',
+  advisory: 'Gemini Advisory',
+  tracking: 'Logistics Tracking',
+  diagnostic: 'AI Diagnosis',
+  rentals: 'Resource Rentals',
+  roadmap: 'Roadmap',
+  remember: 'Remember Me',
+  forgot: 'Forgot PIN?',
+  fullName: 'Full Name',
+  email: 'Email Address',
+  password: 'Password',
+  confirmPassword: 'Confirm Password',
+  state: 'State',
+  town: 'Town / City',
+  age: 'Age',
+  phone: 'Phone No.',
+  mobile: 'Mobile No.',
+  address: 'Detailed Address',
+  village: 'Village / City Name',
+  setPin: 'Set Password',
+  back: 'Back to Login',
+  ask: 'Ask KhetBuddy...',
+  manage: 'Manage Crops',
+  chat: 'Krishi Mitra AI',
+  listening: 'Listening...',
+  processing: 'Thinking...',
+  send: 'Send',
+  weatherStatus: 'SUNNY',
+  myProfile: 'My Profile',
+  signOut: 'Sign Out',
+  notifications: 'Notifications',
+  allClear: 'All Clear',
+  weatherDetail: 'Next 48 hours are dry. Good for sowing wheat.',
+  batchLabel: 'BATCH #KB-2025',
+  tapView: 'TAP TO VIEW PROVENANCE',
+  viewDetails: 'VIEW DETAILS',
+  wheatMaturity: 'Your Wheat crops reach maturity in approximately 12 days. Prepare for harvest mobilization.',
+  viewAllMarkets: 'View All Markets',
+  successTitle: 'Registration Successful!',
+  successSub: 'Welcome to the KhetBuddy community. Taking you to your dashboard...',
+  realTimeWeather: 'REAL-TIME WEATHER',
+  startAiAnalysis: 'Start AI Analysis',
+  reScanCrop: 'RE-SCAN CROP',
+  location: 'Location',
+  verifiedMember: 'Verified Member since 2024',
+  p2pTitle: 'Community Marketplace',
+  p2pSub: 'Shared Resources for Sustainable Farming',
+  listEquipment: 'List Equipment',
+  viewDetailsBook: 'View Details & Book',
+  blockchainVerified: 'BLOCKCHAIN VERIFIED PROVENANCE',
+  yojanaTitle: 'Sarkari Yojana',
+  yojanaSub: 'Government Schemes for Welfare',
+  searchYojana: 'Search for schemes (e.g. Bima, Kalyan)',
+  learnMore: 'Learn More',
+  eligibility: 'Eligibility',
+  benefits: 'Benefits',
+  documentsNeeded: 'Documents Needed',
+  applyNow: 'Apply Now',
+  askGeminiEligible: 'Ask Gemini if I am eligible',
+  cropStatus: 'Crop Health Status',
+  growthStage: 'Growth Stage',
+  soilMoisture: 'Soil Moisture',
+  upcomingTasks: 'Upcoming Tasks',
+  harvestReady: 'Harvest Readiness',
+  notifs: {
+    weatherTitle: 'Weather Condition',
+    weatherDesc: 'Rain expected in 2 days. Secure your harvest.',
+    priceTitle: 'Market Price Alert',
+    priceDesc: 'Wheat price: ₹2,350. Up by ₹120 from last week.',
+    trendTitle: 'Crop Trend',
+    trendDesc: 'Onion prices are trending upwards by 15%.',
+  },
+  crops: {
+    Wheat: 'Wheat',
+    Onion: 'Onion',
+    Tomato: 'Tomato',
+    Rice: 'Rice',
+    Cotton: 'Cotton',
+    Mustard: 'Mustard',
+    Soyabean: 'Soyabean',
+    Potato: 'Potato',
+    Garlic: 'Garlic',
+    Ginger: 'Ginger'
+  },
+  landing: {
+    getStarted: 'Get Started',
+    requestDemo: 'Get a Demo',
+    heroSub: 'The ultimate digital companion for modern agriculture.',
+    quote: "REDEFINING BHARAT'S GROWTH",
+    metrics: [
+      { label: 'Forecast Accuracy', value: '94.2%' },
+      { label: 'Farmer Network', value: '25,000+' },
+      { label: 'Yield Optimization', value: '+35%' },
+      { label: 'Language Support', value: '6 Regional' }
+    ],
+    topicsTitle: 'The KhetBuddy Ecosystem',
+    topicsSub: 'Integrated digital solutions designed to solve modern farming challenges.',
+    topics: [
+      { title: 'Mandi Analytics', desc: 'Predictive pricing models using deep learning.' },
+      { title: 'AI Pathogen Vision', desc: 'Identify 400+ pests and diseases instantly.' },
+      { title: 'P2P Resource Grid', desc: 'Rent tools and reduce farming costs.' },
+      { title: 'Precision Weather', desc: 'Hyper-localized 99% accurate windows.' }
+    ],
+    missionTag: 'Empowering India',
+    missionTitle: 'Bridging Data & Nature',
+    missionDesc: 'Standardizing digital agriculture for every farmer.',
+    missionPoints: [
+      'Blockchain Pricing',
+      '7-Day Crop Advisories',
+      'Regional Languages',
+      'Voice-First UI'
+    ],
+  }
+};
+
+const hiBase = {
+  ...enBase,
+  title: 'खेतबडी',
+  tagline: 'सटीक कृषि। सशक्त किसान।',
+  login: 'लॉगिन करें',
+  register: 'पंजीकरण',
+  mandi: 'मंडी भाव',
+  weather: 'मौसम',
+  advisory: 'कृषि सलाह',
+  diagnostic: 'रोग जांच',
+  rentals: 'किराया',
+  yojanaTitle: 'सरकारी योजनाएं',
+  manage: 'फसल प्रबंधन',
+  crops: {
+    Wheat: 'गेहूं', Onion: 'प्याज', Tomato: 'टमाटर', Rice: 'चावल', Cotton: 'कपास',
+    Mustard: 'सरसों', Soyabean: 'सोयाबीन', Potato: 'आलू', Garlic: 'लहसुन', Ginger: 'अदरक'
+  }
+};
+
+const taBase = {
+  ...enBase,
+  title: 'கேத்படி',
+  tagline: 'துல்லியமான விவசாயம். அதிகாரம் பெற்ற விவசாயிகள்.',
+  login: 'உள்நுழைக',
+  register: 'பதிவு செய்க',
+  mandi: 'மண்டி விலை',
+  weather: 'வானிலை',
+  advisory: 'ஆலோசனை',
+  diagnostic: 'நோய் கண்டறிதல்',
+  rentals: 'வாடகை',
+  yojanaTitle: 'அரசு திட்டங்கள்',
+  manage: 'பயிர் மேலாண்மை'
+};
+
+const teBase = {
+  ...enBase,
+  title: 'ఖేత్బడ్డీ',
+  tagline: 'ఖచ్చితమైన వ్యవసాయం. సాధికారత కలిగిన రైతులు.',
+  login: 'లాగిన్',
+  register: 'నమోదు',
+  mandi: 'మండి ధర',
+  weather: 'వాతావరణం',
+  advisory: 'సలహా',
+  diagnostic: 'వ్యాధి నిర్ధారణ',
+  rentals: 'అద్దె',
+  yojanaTitle: 'ప్రభుత్వ పథకాలు',
+  manage: 'పంట నిర్వహణ'
+};
+
+const paBase = {
+  ...enBase,
+  title: 'ਖੇਤਬੱਡੀ',
+  tagline: 'ਸਟੀਕ ਖੇਤੀ। ਸਸ਼ਕਤ ਕਿਸਾਨ।',
+  login: 'ਲੌਗਇਨ',
+  register: 'ਰਜਿਸਟਰ',
+  mandi: 'ਮੰਡੀ ਭਾਅ',
+  weather: 'ਮੌਸਮ',
+  advisory: 'ਸਲਾਹ',
+  diagnostic: 'ਰੋਗ ਜਾਂਚ',
+  rentals: 'ਕਿਰਾਇਆ',
+  yojanaTitle: 'ਸਰਕਾਰੀ ਯੋਜਨਾਵਾਂ',
+  manage: 'ਫਸਲ ਪ੍ਰਬੰਧਨ'
+};
+
+const mlBase = {
+  ...enBase,
+  title: 'ഖേത്ബഡി',
+  tagline: 'കൃത്യമായ കൃഷി. ശാക്തീകരിക്കപ്പെട്ട കർഷകർ.',
+  login: 'ലോഗിൻ',
+  register: 'രജിസ്റ്റർ',
+  mandi: 'മണ്ടി വില',
+  weather: 'കാലാവസ്ഥ',
+  advisory: 'ഉപദേശം',
+  diagnostic: 'രോഗനിർണ്ണയം',
+  rentals: 'വാടക',
+  yojanaTitle: 'സർക്കാർ പദ്ധതികൾ',
+  manage: 'വിള പരിപാലനം'
+};
+
+export const translations: Record<Language, any> = {
+  en: enBase,
+  hi: hiBase,
+  pa: paBase,
+  ml: mlBase,
+  ta: taBase,
+  te: teBase,
+  mr: { ...hiBase, title: 'खेतबडी (मराठी)' }
+};
