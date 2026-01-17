@@ -1,10 +1,9 @@
 
 import { GoogleGenAI, Type } from "@google/genai";
 
-// Initialize the GoogleGenAI client using the API key from environment variables.
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-
 export const getCropDiagnostic = async (base64Image: string, cropName: string) => {
+  // Create a new GoogleGenAI instance right before making an API call
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   const prompt = `Act as an expert plant pathologist specializing in Indian agriculture, specifically Madhya Pradesh regions. 
   Analyze this image of ${cropName}. 
   Identify potential pests, diseases, or nutrient deficiencies.
@@ -61,6 +60,8 @@ export const getCropDiagnostic = async (base64Image: string, cropName: string) =
 };
 
 export const getKrishiAdvice = async (userMessage: string, language: string) => {
+  // Create a new GoogleGenAI instance right before making an API call
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   const prompt = `You are "Krishi Mitra", a world-class professional agricultural consultant and senior scientist for Indian farmers. 
   The farmer is asking in ${language}. 
   
