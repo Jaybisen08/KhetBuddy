@@ -107,7 +107,7 @@ const App: React.FC = () => {
   };
 
   if (showLanding) {
-    return <LandingPage lang={lang} onLangChange={setLang} onStart={() => setShowLanding(false)} />;
+    return <LandingPage lang={lang} onLangChange={setLang} onStart={() => setShowLanding(false)} isDarkMode={isDarkMode} onThemeToggle={toggleTheme} />;
   }
 
   if (!isLoggedIn) {

@@ -35,8 +35,7 @@ const Profile: React.FC<ProfileProps> = ({ lang, isDarkMode = false }) => {
 
     try {
       const base64 = await fileToBase64(file);
-      // Simulating fetching person photo from the ID document by focusing on center
-      // In a real app, this would be a server-side crop of the face.
+      // Simulating fetching person photo from the ID document
       setUserPhoto(base64); 
       
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
@@ -45,19 +44,23 @@ const Profile: React.FC<ProfileProps> = ({ lang, isDarkMode = false }) => {
         contents: {
           parts: [
             { inlineData: { data: base64.split(',')[1], mimeType: file.type } },
-            { text: "Confirm if this is a valid identity document. Extract Name and ID. Respond ONLY in JSON: {name: string, id: string, verified: boolean}" }
+            { text: "Act as an official government data extraction agent. Identify if this is a valid identity document (Aadhaar/PAN/VoterID). Extract Name, ID number, and any address/location if present. Also infer if it mentions land ownership details. Respond ONLY in JSON with these fields: {name: string, id: string, location: string, farm_size_estimate: string, verified: boolean}" }
           ]
         },
         config: { responseMimeType: "application/json" }
       });
 
-      const extracted = JSON.parse(result.text || '{}');
+      const text = result.text || '{}';
+      const extracted = JSON.parse(text);
+      
       if (extracted.verified || extracted.name) {
         setIsVerified(true);
         setProfileData(prev => ({ 
           ...prev, 
           name: extracted.name || prev.name, 
-          samagraId: extracted.id || prev.samagraId 
+          samagraId: extracted.id || prev.samagraId,
+          location: extracted.location || prev.location,
+          farmSize: extracted.farm_size_estimate || prev.farmSize
         }));
         setScanMessage('Identity Verified Successfully!');
       } else {
@@ -101,7 +104,6 @@ const Profile: React.FC<ProfileProps> = ({ lang, isDarkMode = false }) => {
                 <i className={`fas fa-user-circle text-[100px] ${isDarkMode ? 'text-stone-700' : 'text-stone-200'}`}></i>
               )}
             </div>
-            {/* Manual Profile Photo Upload Overlay */}
             <label className="absolute inset-0 flex items-center justify-center bg-black/40 text-white rounded-full opacity-0 group-hover:opacity-100 cursor-pointer transition-opacity">
                <input type="file" accept="image/*" onChange={handleProfilePhotoUpload} className="hidden" />
                <i className="fas fa-camera text-2xl"></i>
@@ -115,9 +117,9 @@ const Profile: React.FC<ProfileProps> = ({ lang, isDarkMode = false }) => {
           
           <div className="text-center md:text-left space-y-4">
             <div className="flex items-center justify-center md:justify-start gap-4">
-               {userPhoto && (
-                  <div className="w-12 h-12 rounded-full border-2 border-emerald-500 overflow-hidden shadow-md shrink-0">
-                    <img src={userPhoto} alt="Small Avatar" className="w-full h-full object-cover" />
+               {isVerified && (
+                  <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 shadow-inner">
+                    <i className="fas fa-shield-check"></i>
                   </div>
                )}
                <h2 className={`text-4xl md:text-5xl font-black italic uppercase tracking-tighter ${isDarkMode ? 'text-white' : 'text-stone-900'}`}>{profileData.name}</h2>
@@ -148,7 +150,7 @@ const Profile: React.FC<ProfileProps> = ({ lang, isDarkMode = false }) => {
                 <span className={isDarkMode ? 'text-white' : 'text-stone-900'}>{profileData.experienceYears}</span>
               </div>
               <div className="flex justify-between items-center pb-4">
-                <span className="text-stone-400 uppercase text-[9px]">Samagra ID:</span>
+                <span className="text-stone-400 uppercase text-[9px]">ID Reference:</span>
                 <span className={isDarkMode ? 'text-white' : 'text-stone-900'}>{profileData.samagraId}</span>
               </div>
             </div>
@@ -159,12 +161,12 @@ const Profile: React.FC<ProfileProps> = ({ lang, isDarkMode = false }) => {
               <i className="fas fa-shield-check"></i> Identity Status
             </h3>
             
-            {/* Remove Upload Proof option if verified */}
             {!isVerified ? (
-              <div className={`relative border-4 border-dashed rounded-[2rem] p-12 w-full flex flex-col items-center justify-center transition-all cursor-pointer hover:bg-emerald-50 ${isDarkMode ? 'border-white/10' : 'border-stone-200'}`}>
+              <div className={`relative border-4 border-dashed rounded-[2rem] p-12 w-full flex flex-col items-center justify-center transition-all cursor-pointer hover:bg-emerald-50 ${isDarkMode ? 'border-white/10 hover:bg-white/5' : 'border-stone-200'}`}>
                 <input type="file" accept="image/*" onChange={handleDocumentUpload} className="absolute inset-0 opacity-0 cursor-pointer" />
                 <i className="fas fa-camera text-4xl text-stone-300 mb-4"></i>
                 <p className="text-[10px] font-black text-stone-400 uppercase tracking-widest text-center">Verify Identity Proof</p>
+                <p className="text-[8px] text-stone-500 mt-2 uppercase">Aadhaar / Voter ID / Land Record</p>
               </div>
             ) : (
               <div className="w-full p-12 rounded-[2rem] bg-emerald-600/10 border-2 border-emerald-600/30 flex flex-col items-center text-center animate-popIn">
@@ -172,7 +174,7 @@ const Profile: React.FC<ProfileProps> = ({ lang, isDarkMode = false }) => {
                     <i className="fas fa-check text-2xl"></i>
                  </div>
                  <h4 className="text-lg font-black uppercase text-emerald-700">KYC Verified</h4>
-                 <p className="text-[10px] text-stone-500 font-bold mt-2 uppercase tracking-widest leading-relaxed">Your Identity has been mapped to <br/> Samagra ID Successfully.</p>
+                 <p className="text-[10px] text-stone-500 font-bold mt-2 uppercase tracking-widest leading-relaxed">Your Identity has been mapped to <br/> your profile details successfully.</p>
                  <p className="mt-4 text-[8px] font-black text-emerald-600/50 uppercase tracking-[0.2em]">Verified via AI Krishi Vision</p>
               </div>
             )}

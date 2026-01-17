@@ -187,6 +187,18 @@ const SarkariYojana: React.FC<{ lang: Language; onNavigate: any; isDarkMode?: bo
                     ))}
                  </div>
                </div>
+
+               <div className="pt-10 flex flex-col gap-4">
+                  <a 
+                    href={selectedScheme.applyLink} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="w-full bg-emerald-700 text-white py-6 rounded-2xl font-black uppercase tracking-widest text-center shadow-xl hover:bg-emerald-800 transition-all flex items-center justify-center gap-3"
+                  >
+                    <i className="fas fa-external-link-alt"></i> Visit Official Website
+                  </a>
+                  <p className="text-[9px] text-stone-500 font-bold uppercase tracking-widest text-center">Note: You will be redirected to the official government portal.</p>
+               </div>
             </div>
           </div>
         </div>
